@@ -27,7 +27,7 @@ try:
             if compValue == 1:
                 N -= 2**i
         digital_value = N
-        Voltage = round(digital_value / 256 * 3.3, 2)
+        Voltage = digital_value / 256 * 3.3
         if Voltage > 2.6 and flag == 0: 
             flag = 1
             GPIO.output(troyka, GPIO.LOW)
@@ -37,9 +37,9 @@ try:
             break
     t_end = time.time()   
     time_of_experiment = t_end - t_begin
-    avg_descritisation_frequency = round(len(Volts)/time_of_experiment, 2)
+    avg_descritisation_frequency = len(Volts)/time_of_experiment
     with open('/home/b03-404/Desktop/Repositories/get/RodichevML_main_repository/settings.txt', 'w') as f_of_desc:
-        f_of_desc.write(f'Средняя частота дискретизации равна {avg_descritisation_frequency}')
+        f_of_desc.write(f'{avg_descritisation_frequency}')
     with open('/home/b03-404/Desktop/Repositories/get/RodichevML_main_repository/data.txt', 'w') as f_of_data:
         for i in range(len(Volts)):
             f_of_data.write(str(Volts[i]) + '\n')
